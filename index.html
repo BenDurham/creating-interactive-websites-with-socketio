@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO Live Toasts Example</title>
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
+  </head>
+  <body>
+    <div id="container">
+      <h1>User Details</h1>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur dolorum explicabo quam dolores vero. Unde corrupti ea aut soluta modi, dolorum ex eius dignissimos? Vel necessitatibus tempore atque similique maxime!</p>
+      <div id="socketid" class="toast"></div>
+      <div id="globalToast" class="toast"></div>
+      <div id="userToast"></div>
+      <button id="update">Update Settings</button>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      var socket = io();
+
+      function animateToast(id, msg) {
+        var item = document.getElementById(id);
+
+        item.innerHTML = msg;
+        item.className = "toast show";
+        setTimeout(function() { item.className = item.className.replace("show", ""); }, 3000);
+      }
+
+      socket.on('global sync', function(msg) {
+        animateToast('globalToast', msg);
+      });
+
+      document.getElementById("update").addEventListener("click", function() {
+        socket.emit('user update', { active: true });
+      });
+
+      
+      socket.on('user update', function(msg) {
+        animateToast('userToast', msg);
+      });
+    </script>
+  </body>
+</html>
