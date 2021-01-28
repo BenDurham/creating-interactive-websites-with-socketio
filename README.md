@@ -8,6 +8,6 @@ Node.js > 8
 
 ### Getting Started ###
 
-yarn install
-yarn start (or nodemon index.js)
-navigate to http://localhost:3000
+yarn install  
+yarn start (or nodemon index.js)  
+navigate to http://localhost:3000  
